@@ -6,16 +6,7 @@ const app = express();
 
 let server = app.listen(process.env.PORT, function(){
     console.log("Server started!");
-    var json = {
-        'name' : 'dinura',
-        'age' : 15,
-        'isMale' : true
-      };
-    let d = JSON.stringify(json);
-
-    let a = JSON.parse(d);
-    console.log(a);
-    console.log(a['name']);
+    let user = new User('asd','ad','asd',123,true);
 });
 
 const io = require("socket.io")(server);
