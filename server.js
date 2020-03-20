@@ -36,13 +36,16 @@ io.on('connection', function(socket){
         socket.emit('userList', json);
     });
     socket.on('disconnect', function(){
-        let user = socketUserMap.get(socket);
-        userIdSocketMap.delete(user.id);
-        socketUserMap.delete(socket);
-        if(newUserArray.includes(user)){
-            newUserArray = arrayRemove(newUserArray, user);
+        if(socketUserMap.has(socket)){
+            let user = socketUserMap.get(socket);
+            userIdSocketMap.delete(user.id);
+            socketUserMap.delete(socket);
+        
+            if(newUserArray.includes(user)){
+                newUserArray = arrayRemove(newUserArray, user);
+            }
+            leftUserArray.push(user);
         }
-        leftUserArray.push(user);
     });
     socket.on('sendMessage', function(message){
         let receiver = message.receiver;
