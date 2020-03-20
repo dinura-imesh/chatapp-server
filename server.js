@@ -15,6 +15,8 @@ app.get('/', function(req,res){
 
 io.on('connection', function(socket){
     socket.on('data', function(data){
-        socket.emit('d', {"name" : "dinura"});
+        let map = JSON.parse(data);
+        let name = map['name'];
+        socket.emit('name', {"name" : name});
     });
 });
