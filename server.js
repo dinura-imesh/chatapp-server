@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+let User = require("./user");
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.get('/', function(req,res){
 
 io.on('connection', function(socket){
     socket.on('data', function(data){
-        socket.emit('name', {"name" : data['name']});
+        let user =  new User(data['id'], data['name'], data['age'], data['isMale']);
+        socket.emit('name', {"name" : user.name, "age": user.age, "isMale": user.isMale, "id": user.id});
     });
 });
