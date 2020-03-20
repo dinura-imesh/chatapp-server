@@ -22,6 +22,7 @@ const io = require("socket.io")(server);
 
 app.get('/', function(req,res){
     res.send("server is running!");
+    console.log("A");
 });
 
 io.on('connection', function(socket){
