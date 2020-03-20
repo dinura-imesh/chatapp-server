@@ -25,20 +25,46 @@ let leftUserArray = new Array();
 
 io.on('connection', function(socket){
     socket.on('join', function(data){
-        let id = data['id'];
-        let isMale = data.isMale;
-        let user =  new User(data['id'], data['name'], data['age'], isMale);
-        socketUserMap.set(socket, user);
-        userIdSocketMap.set(id,socket);
-        newUserArray.push(id);
-        socket.emit('e', {'data' : isMale});
+        socketUserMap.set(socket, data);
+        userIdSocketMap.set(data.id,socket);
+        newUserArray.push(data);
+        let users = Array.from(socketUserMap.values());
+        let usersJson = JSON.stringify(users);
+        let json = {
+            'users' : usersJson
+        };
+        socket.emit('userList', json);
     });
     socket.on('disconnect', function(){
         let user = socketUserMap.get(socket);
         userIdSocketMap.delete(user.id);
-
+        socketUserMap.delete(socket);
+        if(newUserArray.includes(user)){
+            newUserArray = arrayRemove(newUserArray, user);
+        }
+        leftUserArray.push(user);
+    });
+    socket.on('sendMessage', function(message){
+        let receiver = message.receiver;
+        if(userIdSocketMap.has(receiver)){
+            userIdSocketMap.get(receiver).emit('message', message);
+        }
     });
 });
+
+setInterval(() => {
+    if(newUserArray.length > 0 || leftUserArray > 0){
+    let newJson = JSON.stringify(newUserArray);
+    let leftJson = JSON.stringify(leftUserArray);
+    let json = {
+        'newUsers' : newJson,
+        'leftUsers' : leftJson
+    };
+    io.emit('broadcast', json);    
+    newUserArray = new Array();
+    leftUserArray = new Array();
+}
+}, 5000);
 
 function arrayRemove(arr, value) {
     console.log(arr.length);
