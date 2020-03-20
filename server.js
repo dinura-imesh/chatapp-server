@@ -4,21 +4,50 @@ let User = require("./user");
 
 const app = express();
 
+
 let server = app.listen(process.env.PORT, function(){
     console.log("Server started!");
-    let user = new User('asd','ad','asd',123,true);
 });
 
 const io = require("socket.io")(server);
 
 app.get('/', function(req,res){
     res.send("server is running!");
-    console.log("A");
 });
 
+
+let socketUserMap = new Map();
+let userIdSocketMap = new Map();
+
+let newUserArray = new Array();
+let leftUserArray = new Array();
+
+
 io.on('connection', function(socket){
-    socket.on('data', function(data){
-        let user =  new User(data['id'], data['name'], data['age'], data['isMale']);
-        socket.emit('name', {"name" : user.name, "age": user.age, "isMale": user.isMale, "id": user.id});
+    socket.on('join', function(data){
+        let id = data['id'];
+        let isMale = data.isMale;
+        let user =  new User(data['id'], data['name'], data['age'], isMale);
+        socketUserMap.set(socket, user);
+        userIdSocketMap.set(id,socket);
+        newUserArray.push(id);
+    });
+    socket.on('disconnect', function(){
+        let user = socketUserMap.get(socket);
+        userIdSocketMap.delete(user.id);
+
     });
 });
+
+function arrayRemove(arr, value) {
+    console.log(arr.length);
+    let position = arr.indexOf(value);
+    arr.splice(position,1);
+    console.log(arr.length);
+    let f = arr.filter(function (e) {
+        return e != null;
+    });
+    return f;
+}
+
+//join, userlistupdate(one even with two arrays//joined//leaved),  message
