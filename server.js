@@ -31,6 +31,7 @@ io.on('connection', function(socket){
         socketUserMap.set(socket, user);
         userIdSocketMap.set(id,socket);
         newUserArray.push(id);
+        socket.emit('e', {'data' : isMale});
     });
     socket.on('disconnect', function(){
         let user = socketUserMap.get(socket);
