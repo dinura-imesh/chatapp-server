@@ -18,6 +18,8 @@ io.on('connection', function(socket){
         // let map = JSON.parse(data);
 
         let name = typeof data;
-        socket.emit('name', {"name" : name});
+        let d = data.toString();
+        let v = name.toString() + " " + d;
+        socket.emit('name', {"name" : v});
     });
 });
