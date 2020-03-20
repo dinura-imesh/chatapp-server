@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-let server = app.listen(8000, function(){
+let server = app.listen(process.env.PORT, function(){
     console.log("Server started!");
 });
 
