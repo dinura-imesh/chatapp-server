@@ -30,7 +30,7 @@ io.on('connection', function(socket){
             userIdSocketMap.set(data.id,socket);
             newUserArray.push(data);
             let users = Array.from(socketUserMap.values());
-            let usersJson = JSON.stringify(users);
+            let usersJson = JSON.stringify(users) + ',';
             let json = {
                 'users' : usersJson
             };
