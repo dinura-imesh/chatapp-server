@@ -32,10 +32,10 @@ io.on('connection', function(socket){
             let users = Array.from(socketUserMap.values());
             let usersJson = JSON.stringify(users);
             let json = {
-                usersJson
+                'users' : usersJson,
             };
             let jsonString = JSON.stringify(json);
-            socket.emit('userList', json);
+            socket.emit('userList', jsonString);
         }
     });
     socket.on('disconnect', function(){
