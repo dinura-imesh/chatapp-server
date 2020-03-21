@@ -34,7 +34,7 @@ io.on('connection', function(socket){
             let json = {
                 'users' : usersJson
             };
-            // let jsonString = JSON.stringify(json);
+            let jsonString = JSON.stringify(json);
             socket.emit('userList', jsonString);
         }
     });
