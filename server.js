@@ -32,9 +32,7 @@ io.on('connection', function(socket){
             let users = Array.from(socketUserMap.values());
             let usersJson = JSON.stringify(users);
             let json = {
-                'users' : {
-                    'array' : usersJson, 
-                }
+                usersJson
             };
             let jsonString = JSON.stringify(json);
             socket.emit('userList', json);
