@@ -25,15 +25,17 @@ let leftUserArray = new Array();
 
 io.on('connection', function(socket){
     socket.on('join', function(data){
-        socketUserMap.set(socket, data);
-        userIdSocketMap.set(data.id,socket);
-        newUserArray.push(data);
-        let users = Array.from(socketUserMap.values());
-        let usersJson = JSON.stringify(users);
-        let json = {
-            'users' : usersJson
-        };
-        socket.emit('userList', json);
+        if(!userIdSocketMap.has(data.id)){
+            socketUserMap.set(socket, data);
+            userIdSocketMap.set(data.id,socket);
+            newUserArray.push(data);
+            let users = Array.from(socketUserMap.values());
+            let usersJson = JSON.stringify(users);
+            let json = {
+                "users" : usersJson
+            };
+            socket.emit('userList', json);
+        }
     });
     socket.on('disconnect', function(){
         if(socketUserMap.has(socket)){
