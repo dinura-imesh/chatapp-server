@@ -73,6 +73,8 @@ io.on('connection', function(socket){
             };
             let jsonString = JSON.stringify(json);
             socket.emit('userList', jsonString);
+        }else{
+            socket.emit('useList' , 'already joined!');
         }
     });
     socket.on('disconnect', function(){
