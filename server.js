@@ -57,12 +57,12 @@ io.on('connection', function(socket){
             userIdSocketMap.set(data.id,socket);
             newUserArray.push(data);
             let users = Array.from(socketUserMap.values());
-            let usersJson = JSON.parse(JSON.stringify(users));
+            // let usersJson = JSON.parse(JSON.stringify(users));
             let json = {
-                'users' : usersJson
+                'users' : users
             };
             let jsonString = JSON.stringify(json);
-            socket.emit('userList', "jsonString");
+            socket.emit('userList', jsonString);
         }
     });
     socket.on('disconnect', function(){
