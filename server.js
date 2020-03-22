@@ -103,7 +103,8 @@ io.on('connection', function(socket){
         }
     });
     socket.on('sendMessage', function(message){
-        let receiver = message.receiver;
+        let parsed = JSON.parse(message);
+        let receiver = parsed.receiver;
         if(userIdSocketMap.has(receiver)){
             userIdSocketMap.get(receiver).emit('message', message);
         }
