@@ -23,8 +23,9 @@ app.get('/reset', function(req,res){
     leftUserArray = new Array();
 });
 
-app.get('/test', function(req,res){
+app.get('/message', function(req,res){
     let receiver  = "1";
+    let message = req.query.m;
     let message = {
         'message' : 'testMessage',
         'type' : 'text',
