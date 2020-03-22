@@ -12,7 +12,7 @@ let server = app.listen(process.env.PORT, function(){
 const io = require("socket.io")(server);
 
 app.get('/', function(req,res){
-    res.send("server is running!");
+    res.send("server is running!" + requestReceived.toString());
 });
 
 app.get('/test', function(req,res){
@@ -40,6 +40,7 @@ let userIdSocketMap = new Map();
 let newUserArray = new Array();
 let leftUserArray = new Array();
 
+let requestReceived = false;
 
 io.on('connection', function(socket){
     socket.on('join', function(data){
@@ -53,6 +54,7 @@ io.on('connection', function(socket){
                 'users' : usersJson
             };
             let jsonString = JSON.stringify(json);
+            requestReceived = true;
             socket.emit('userList', jsonString);
         }
     });
