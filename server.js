@@ -21,6 +21,7 @@ app.get('/reset', function(req,res){
     userIdSocketMap = new Map();
     newUserArray = new Array();
     leftUserArray = new Array();
+    res.send("Reset complete!");
 });
 
 app.get('/message', function(req,res){
@@ -61,7 +62,7 @@ io.on('connection', function(socket){
                 'users' : usersJson
             };
             let jsonString = JSON.stringify(json);
-            socket.emit('userList', jsonString);
+            socket.emit('userList', "jsonString");
         }
     });
     socket.on('disconnect', function(){
