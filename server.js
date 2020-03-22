@@ -23,6 +23,16 @@ app.get('/reset', function(req,res){
     leftUserArray = new Array();
 });
 
+app.get('/users',function (req,res) {
+    let users = Array.from(socketUserMap.values());
+    let usersJson = JSON.parse(JSON.stringify(users));
+    let json = {
+        'users' : usersJson
+    };
+    let jsonString = JSON.stringify(json);
+    res.send(json.toString() + " | " + jsonString);
+})
+
 app.get('/message', function(req,res){
     let receiver  = "1";
     let m = req.query.m;
@@ -58,7 +68,7 @@ io.on('connection', function(socket){
             let users = Array.from(socketUserMap.values());
             let usersJson = JSON.parse(JSON.stringify(users));
             let json = {
-                'users' : users
+                'users' : usersJson
             };
             let jsonString = JSON.stringify(json);
             socket.emit('userList', jsonString);
