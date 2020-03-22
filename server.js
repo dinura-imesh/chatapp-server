@@ -115,14 +115,17 @@ setInterval(() => {
     let newJson = JSON.stringify(newUserArray);
     let leftJson = JSON.stringify(leftUserArray);
     let json = {
-        'newUsers' : newJson,
-        'leftUsers' : leftJson
+        'newUsers' : newUserArray,
+        'leftUsers' : leftUserArray
     };
-    io.emit('broadcast', json);    
+
+    let jsonString = JSON.stringify(json);
+
+    io.emit('broadcast', jsonString);
     newUserArray = new Array();
     leftUserArray = new Array();
 }
-}, 5000);
+}, 1000);
 
 function arrayRemove(arr, value) {
     console.log(arr.length);
