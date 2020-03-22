@@ -12,7 +12,7 @@ let server = app.listen(process.env.PORT, function(){
 const io = require("socket.io")(server);
 
 app.get('/', function(req,res){
-    res.send("server is running!" + requestReceived.toString());
+    res.send("server is running!");
 });
 
 
