@@ -23,39 +23,6 @@ app.get('/reset', function(req,res){
     leftUserArray = new Array();
 });
 
-app.get('/users',function (req,res) {
-    let users = Array.from(socketUserMap.values());
-    let usersJson = JSON.parse(JSON.stringify(users));
-    let json = {
-        'users' : usersJson
-    };
-    let jsonString = JSON.stringify(json);
-
-    let userJson = JSON.stringify(users);
-    let json1 = {
-        'users' : userJson
-    };
-    let jsonString1 = JSON.stringify(json1);
-
-    let json2 = {
-        'users' : users
-    };
-    let jsonString2 = JSON.stringify(json2);
-
-    let jsonString3 = JSON.stringify(users);
-
-    let json3 = {};
-    json3['users'] = users;
-    let jsonString4 = JSON.stringify(json3);
-
-    let ob = new Object();
-    ob.users = users;
-    let jsonString5 = JSON.stringify(ob);
-    res.send(jsonString + "    |    " + jsonString1 + "    |    " + jsonString2 + "    |    " + jsonString3 + "    |    " + jsonString4 + + "    |      " + jsonString5);
-
-
-})
-
 app.get('/message', function(req,res){
     let receiver  = "1";
     let m = req.query.m;
