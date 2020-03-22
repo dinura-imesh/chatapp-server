@@ -47,7 +47,11 @@ app.get('/users',function (req,res) {
     let json3 = {};
     json3['users'] = users;
     let jsonString4 = JSON.stringify(json3);
-    res.send(jsonString + " | " + jsonString1 + " | " + jsonString2 + " | " + jsonString3 + " | " + jsonString4);
+
+    let ob = new Object();
+    ob.users = users;
+    let jsonString5 = JSON.stringify(ob);
+    res.send(jsonString + "    |    " + jsonString1 + "    |    " + jsonString2 + "    |    " + jsonString3 + "    |    " + jsonString4 + + "    |      " + jsonString5);
 
 })
 
