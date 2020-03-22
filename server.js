@@ -25,9 +25,9 @@ app.get('/reset', function(req,res){
 
 app.get('/message', function(req,res){
     let receiver  = "1";
-    let message = req.query.m;
+    let m = req.query.m;
     let message = {
-        'message' : 'testMessage',
+        'message' : m,
         'type' : 'text',
         'time' : 256,
         'receiver' : '1',
