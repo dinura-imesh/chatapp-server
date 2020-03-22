@@ -15,6 +15,14 @@ app.get('/', function(req,res){
     res.send("server is running!" + requestReceived.toString());
 });
 
+
+app.get('/reset', function(req,res){
+    socketUserMap = new Map();
+    userIdSocketMap = new Map();
+    newUserArray = new Array();
+    leftUserArray = new Array();
+});
+
 app.get('/test', function(req,res){
     let receiver  = "1";
     let message = {
@@ -40,7 +48,6 @@ let userIdSocketMap = new Map();
 let newUserArray = new Array();
 let leftUserArray = new Array();
 
-let requestReceived = false;
 
 io.on('connection', function(socket){
     socket.on('join', function(data){
@@ -54,7 +61,6 @@ io.on('connection', function(socket){
                 'users' : usersJson
             };
             let jsonString = JSON.stringify(json);
-            requestReceived = true;
             socket.emit('userList', jsonString);
         }
     });
