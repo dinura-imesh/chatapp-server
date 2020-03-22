@@ -53,6 +53,7 @@ app.get('/users',function (req,res) {
     let jsonString5 = JSON.stringify(ob);
     res.send(jsonString + "    |    " + jsonString1 + "    |    " + jsonString2 + "    |    " + jsonString3 + "    |    " + jsonString4 + + "    |      " + jsonString5);
 
+
 })
 
 app.get('/message', function(req,res){
@@ -84,7 +85,7 @@ let leftUserArray = new Array();
 io.on('connection', function(socket){
     socket.on('join', function(data){
         if(!userIdSocketMap.has(data.id)){
-            socketUserMap.set(socket, data);
+            socketUserMap.set(socket, JSON.parse(data));
             userIdSocketMap.set(data.id,socket);
             newUserArray.push(data);
             let users = Array.from(socketUserMap.values());
