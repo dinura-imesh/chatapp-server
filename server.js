@@ -24,6 +24,16 @@ app.get('/reset', function(req,res){
     res.send("Reset complete!");
 });
 
+app.get('/users', function (req,res) {
+    let users = Array.from(socketUserMap.values());
+    // let usersJson = JSON.parse(JSON.stringify(users));
+    let json = {
+        'users' : users
+    };
+    let jsonString = JSON.stringify(json);
+    res.send(jsonString);
+})
+
 app.get('/message', function(req,res){
     let receiver  = "1";
     let m = req.query.m;
