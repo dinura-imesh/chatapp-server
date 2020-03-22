@@ -42,7 +42,8 @@ app.get('/users',function (req,res) {
     };
     let jsonString2 = JSON.stringify(json2);
 
-    res.send(jsonString + " | " + jsonString1 + " | " + jsonString2);
+    let jsonString3 = JSON.stringify(users);
+    res.send(jsonString + " | " + jsonString1 + " | " + jsonString2 + " | " + jsonString3);
 
 })
 
