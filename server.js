@@ -62,10 +62,11 @@ let leftUserArray = new Array();
 
 io.on('connection', function(socket){
     socket.on('join', function(data){
-        if(!userIdSocketMap.has(data.id)){
-            socketUserMap.set(socket, JSON.parse(data));
-            userIdSocketMap.set(data.id,socket);
-            newUserArray.push(data);
+        let parsed = JSON.parse(data);
+        if(!userIdSocketMap.has(parsed.id)){
+            socketUserMap.set(socket, parsed);
+            userIdSocketMap.set(parsed.id,socket);
+            newUserArray.push(parsed);
             let users = Array.from(socketUserMap.values());
             // let usersJson = JSON.parse(JSON.stringify(users));
             let json = {
