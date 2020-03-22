@@ -20,7 +20,7 @@ app.get('/test', function(req,res){
     let message = {
         'message' : 'testMessage',
         'type' : 'text',
-        'time' : '256',
+        'time' : 256,
         'receiver' : '1',
         'sender' : 'server'
     };
