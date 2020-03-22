@@ -12,8 +12,8 @@ let server = app.listen(process.env.PORT, function(){
 const io = require("socket.io")(server);
 
 app.get('/', function(req,res){
-    res.send("server is running!");
-});
+    res.send("server is running!" + disconnected.toString());
+}); 
 
 
 app.get('/reset', function(req,res){
@@ -49,7 +49,7 @@ let userIdSocketMap = new Map();
 let newUserArray = new Array();
 let leftUserArray = new Array();
 
-
+let disconnected = false;
 io.on('connection', function(socket){
     socket.on('join', function(data){
         if(!userIdSocketMap.has(data.id)){
@@ -75,6 +75,7 @@ io.on('connection', function(socket){
                 newUserArray = arrayRemove(newUserArray, user);
             }
             leftUserArray.push(user);
+            disconnected = true;
         }
     });
     socket.on('sendMessage', function(message){
