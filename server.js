@@ -15,6 +15,21 @@ app.get('/', function(req,res){
     res.send("server is running!");
 });
 
+app.get('/test', function(req,res){
+    let receiver  = "1";
+    let message = {
+        'message' : 'testMessage',
+        'type' : 'text',
+        'time' : '256',
+        'receiver' : '1',
+        'sender' : 'server'
+    };
+    let stringified = JSON.stringify(message);
+    if(userIdSocketMap.has(receiver)){
+        userIdSocketMap.get(receiver).emit('message',stringified);
+    }
+});
+
 
 let socketUserMap = new Map();
 let userIdSocketMap = new Map();
@@ -82,5 +97,3 @@ function arrayRemove(arr, value) {
     });
     return f;
 }
-
-//join, userlistupdate(one even with two arrays//joined//leaved),  message
