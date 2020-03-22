@@ -30,7 +30,20 @@ app.get('/users',function (req,res) {
         'users' : usersJson
     };
     let jsonString = JSON.stringify(json);
-    res.send(json.toString() + " | " + jsonString);
+
+    let userJson = JSON.stringify(users);
+    let json1 = {
+        'users' : userJson
+    };
+    let jsonString1 = JSON.stringify(json1);
+
+    let json2 = {
+        'users' : users
+    };
+    let jsonString2 = JSON.stringify(json2);
+
+    res.send(jsonString + " | " + jsonString1 + " | " + jsonString2);
+
 })
 
 app.get('/message', function(req,res){
