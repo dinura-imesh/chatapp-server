@@ -27,6 +27,9 @@ app.get('/test', function(req,res){
     let stringified = JSON.stringify(message);
     if(userIdSocketMap.has(receiver)){
         userIdSocketMap.get(receiver).emit('message',stringified);
+        res.send("Message sent");
+    }else{
+        res.send("User does not exist")
     }
 });
 
