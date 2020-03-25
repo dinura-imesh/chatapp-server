@@ -1,9 +1,6 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-let User = require("./user");
 
 const app = express();
-
 
 let server = app.listen(process.env.PORT, function(){
     console.log("Server started!");
@@ -14,45 +11,6 @@ const io = require("socket.io")(server);
 app.get('/', function(req,res){
     res.send("server is running!");
 }); 
-
-
-app.get('/reset', function(req,res){
-    socketUserMap = new Map();
-    userIdSocketMap = new Map();
-    newUserArray = new Array();
-    leftUserArray = new Array();
-    res.send("Reset complete!");
-});
-
-app.get('/users', function (req,res) {
-    let users = Array.from(socketUserMap.values());
-    // let usersJson = JSON.parse(JSON.stringify(users));
-    let json = {
-        'users' : users
-    };
-    let jsonString = JSON.stringify(json);
-    res.send(jsonString);
-})
-
-app.get('/message', function(req,res){
-    let receiver  = "1";
-    let m = req.query.m;
-    let message = {
-        'message' : m,
-        'type' : 'text',
-        'time' : 256,
-        'receiver' : '1',
-        'sender' : 'server'
-    };
-    let stringified = JSON.stringify(message);
-    if(userIdSocketMap.has(receiver)){
-        userIdSocketMap.get(receiver).emit('message',stringified);
-        res.send("Message sent");
-    }else{
-        res.send("User does not exist")
-    }
-});
-
 
 let socketUserMap = new Map();
 let userIdSocketMap = new Map();
@@ -68,7 +26,6 @@ io.on('connection', function(socket){
             userIdSocketMap.set(parsed.id,socket);
             newUserArray.push(parsed);
             let users = Array.from(socketUserMap.values());
-            // let usersJson = JSON.parse(JSON.stringify(users));
             let json = {
                 'users' : users
             };
@@ -126,7 +83,7 @@ setInterval(() => {
     newUserArray = new Array();
     leftUserArray = new Array();
 }
-}, 1000);
+}, 5000);
 
 function arrayRemove(arr, value) {
     console.log(arr.length);
